@@ -43,8 +43,7 @@ For location, you have three options:
 You choose between the three options by commenting/uncommenting blocks in the .htaccess. Precise instructions are given in the .htaccess.
 
 ## Verifying that it works
-Simply check that an image displays both in a browser with WebP support (ie Google Chrome or Opera) and in a browser without (ie Firefox or Internet explorer). Also check that the file is created.
-RemIf the permissionscript do
+Simply check that an image displays both in a browser with WebP support (ie Google Chrome or Opera) and in a browser without (ie Firefox or Internet explorer). Also check that the converted file is created.
 
 ## Limitations
 * The solution does not work on Microsoft IIS server
