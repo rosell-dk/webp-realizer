@@ -14,13 +14,13 @@ With this solution, you will be able to write ie:
 
 Pros and cons compared to [Webp on demand](https://github.com/rosell-dk/webp-on-demand):
 
-PRO: This works better with CDN's
-CON: This does not work on images referenced in CSS
+PRO: This works better with CDN's<br>
+CON: This does not work on images referenced in CSS<br>
 CON: You will have to have control of the markup
 
 I'm planning to make a Wordpress adaptation, which automatically creates the markup.
 
-One solution is to work on entire output with output buffering. But the downside of doing that is that it slows things down, because content isn't allowed to be sent to the browser as its ready, but instead has to wait for the full document to be rendered (more about the approach here: https://stackoverflow.com/questions/772510/wordpress-filter-to-modify-final-html-output). 
+One solution is to work on entire output with output buffering. But the downside of doing that is that it slows things down, because content isn't allowed to be sent to the browser as its ready, but instead has to wait for the full document to be rendered (more about the approach [here](https://stackoverflow.com/questions/772510/wordpress-filter-to-modify-final-html-output)). 
 
 Another solution is to find relevants hook. get_image_tag looks very promising (but I don't know if plugins that inserts images generally uses the hook. If not, then there will be additional work getting it to work with selected popular plugins, such as galleries)
 
