@@ -46,17 +46,7 @@ You choose between the three options by commenting/uncommenting blocks in the .h
 Simply check that an image displays both in a browser with WebP support (ie Google Chrome or Opera) and in a browser without (ie Firefox or Internet explorer). Also check that the file is created.
 RemIf the permissionscript do
 
-## A similar project
-The project is very similar to [WebP on demand](https://github.com/rosell-dk/webp-on-demand). The converter is the same, but *WebP on demand* does not require the HTML. Instead, the jpeg/png is routed to the converted file for clients that supports webp. That is, conditionally.
-
-Pros and cons compared to [Webp on demand](https://github.com/rosell-dk/webp-on-demand):
-
-PRO: This works better with CDN's<br>
-CON: This does not work on images referenced in CSS<br>
-CON: You will have to have control of the markup
-
 ## Limitations
-
 * The solution does not work on Microsoft IIS server
 * The solution requires PHP > 5.5.0 compiled with webp support
 
@@ -70,11 +60,14 @@ The image converter is using the [imagewebp()](http://php.net/manual/en/function
 
 * Use cweb converter when imagewebp isn't available. 
 
+## A similar project
+The project is very similar to [WebP on demand](https://github.com/rosell-dk/webp-on-demand). The converter is the same, but *WebP on demand* does not require the HTML. Instead, the jpeg/png is routed to the converted file for clients that supports webp. That is, conditionally.
 
-## Related
-* [My original post presenting the solution](https://www.bitwise-it.dk/blog/webp-on-demand)
-* [Wordpress adaptation of the solution](https://github.com/rosell-dk/webp-express) - It's on github, but I have submitted it to Wordpress. Once it is hopefully approved, you will be able to install it directly from wordpress. It is called "WebP Express"
-* I'm working on a very similar, but distincly different solution, which I call webp-realizer. It's on github [here](https://github.com/rosell-dk/webp-realizer)
+Pros and cons compared to [Webp on demand](https://github.com/rosell-dk/webp-on-demand):
+
+PRO: This works better with CDN's<br>
+CON: This does not work on images referenced in CSS<br>
+CON: You will have to have control of the markup
 
 ## Wordpress adaptation
 I'm planning to make a Wordpress adaptation, which automatically creates the markup.
