@@ -57,8 +57,9 @@ The image converter is using the [imagewebp()](http://php.net/manual/en/function
 
 ## Roadmap
 
-* Use cweb converter when imagewebp isn't available. 
-
+* Use cweb converter when imagewebp isn't available.
+* Updating the original image will not cause the converted image to be updated. It would be possible though: The converted image could have the modification date of the original as part of the filename. Of course, this will only make practical sense when the markup is generated automatically.
+ 
 ## A similar project
 The project is very similar to [WebP on demand](https://github.com/rosell-dk/webp-on-demand). The converter is the same, but *WebP on demand* does not require the HTML. Instead, the jpeg/png is routed to the converted file for clients that supports webp. That is, conditionally.
 
@@ -67,6 +68,7 @@ Pros and cons compared to [Webp on demand](https://github.com/rosell-dk/webp-on-
 PRO: This works better with CDN's<br>
 CON: This does not work on images referenced in CSS<br>
 CON: You will have to have control of the markup
+
 
 ## Wordpress adaptation
 I'm planning to make a Wordpress adaptation, which automatically creates the markup.
