@@ -15,7 +15,7 @@ It works by .htaccess magic coupled with an image converter. Basically, a rule i
 The image converter is able to use several methods to convert the image (imagick extension, gd extension, directly call cwebp binary or connect to ewww image optimizer cloud service). To learn the options, go to the [project on github](https://github.com/rosell-dk/webp-convert)
 
 ## Installation
-To use the solution on your website, copy the two .htaccess and the webp-convert directory into your root folder. Also make sure that www-data has permission to write in the relevant portion of your site.
+To use the solution on your website, copy the .htaccess and the webp-convert directory into your root folder. Also make sure that www-data has permission to write in the relevant portion of your site.
 
 
 ## Configuration
@@ -58,9 +58,9 @@ The project is very similar to [WebP on demand](https://github.com/rosell-dk/web
 
 Pros and cons of *WebP realizer* compared to [Webp on demand](https://github.com/rosell-dk/webp-on-demand):
 
-PRO: WebP realizer requires no special setup on CDN's<br>
-CON: WebP realizer does not work on images referenced in CSS<br>
-CON: WebP realizer requires you to add extra HTML markup (manually or by other means)<br>
+PRO: *WebP realizer* requires no special setup on CDN's<br>
+CON: *WebP realizer* does not work on images referenced in CSS<br>
+CON: *WebP realizer* requires you to add extra HTML markup (manually or by other means)<br>
 
 
 ## Wordpress adaptation
