@@ -2,37 +2,30 @@
   RewriteEngine On
   RewriteBase /
 
-  # Use these two lines if you want the generated files to be placed
-  # in the same folder as the original image.
-  # Ie if file "/images/logo.jpg.webp" does not exist, then it will be attempted
-  # to create it from the file "/images/logo.jpg"
-  # You can set the quality of the generated webp here (a number between 0-100)
-  # If you do not want png images to be converted, simply remove "|png" from the code
-
-  RewriteCond %{DOCUMENT_ROOT}/$1.$2.webp !-f
-  RewriteRule ^(.*)\.(jpe?g|png)\.(webp)$ webp-convert.php?file=$1.$2&quality=80 [T=image/webp]
-
-
-  # Use the following two lines instead, if you want the generated files to be placed in
-  # a separate folder, "/webp-cache/". 
-  # Ie if file "/webp-cache/images/logo.jpg.webp" does not exit, then it will be
-  # attempted to create it from "/images/logo.jpg".
-  # You can change the name of the folder, but make sure to change it in both places
-  # Do not add full url with http in the rewrite rules, it will cause an extra request
-
-  #  RewriteCond %{DOCUMENT_ROOT}/web-cache/$1$2.$3.webp !-f
-  #  RewriteRule ^(.*)webp-cache\/(.*)\.(jpe?g|png)\.(webp)$ webp-convert.php?file=$1$2.$3&quality=80&destination-folder=webp-cache/ [T=image/webp]
-
-  # If you do not want converted files to be saved, just served, you can add a "no-save"
-  # parameter to the url. You can also remove the condition.
-  # So use the following line if you want no saving, and your naming convention is as such:
+  # Use these two lines if you want the converted images to be placed
+  # in the same folder as the original image
+  # You are then expected to create HTML like this:
   # <picture>
   #  <source srcset="logo.jpg.webp" type="image/webp" />
   #  <img src="logo.jpg" />
   # </picture>
 
-  # RewriteRule ^(.*)\.(jpe?g|png)\.(webp)$ webp-convert.php?file=$1.$2&quality=80&no-save [T=image/webp]
-  
+  RewriteCond %{DOCUMENT_ROOT}/$1.$2.webp !-f
+  RewriteRule ^(.*)\.(jpe?g|png)\.(webp)$ webp-convert/webp-convert.php?source=$1.$2&quality=80&preferred-converters=imagick,cwebp&serve-image [T=image/webp]
+
+  # Use the following two lines instead, if you want the converted images to be placed in
+  # a separate folder, "/webp-cache/".
+  # You can change the name of the folder, but make sure to change it in all three places
+  # You are then expected to create HTML like this:
+  # <picture>
+  #  <source srcset="/webp-cache/some/subfolder/logo.jpg.webp" type="image/webp" />
+  #  <img src="/some/subfolder/logo.jpg" />
+  # </picture>
+
+  # Pst: Do not add full url with http in the rewrite rules, it will cause an extra request
+  # RewriteCond %{DOCUMENT_ROOT}/webp-cache/$1$2.$3.webp !-f
+  # RewriteRule ^(.*)webp-cache\/(.*)\.(jpe?g|png)\.(webp)$ webp-convert/webp-convert.php?source=$1$2.$3&quality=80&destination-root=webp-cache&preferred-converters=imagick,cwebp&serve-image [T=image/webp]
+
 </IfModule>
 
 AddType image/webp .webp

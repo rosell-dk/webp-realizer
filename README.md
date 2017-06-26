@@ -10,11 +10,12 @@ With this solution, you are able to write ie:
 ```
 - and have "image.jpg.webp" automatically generated for you the first time it is requested.
 
-It works by .htaccess magic coupled with an image converter. Basically, a rule in the .htaccess detects when a file is requested, which isn't there, and which ends with ".jpg.webp", ".jpeg.webp" or ".png.webp". When this happens, it routes the request to the converter, which looks for an image with the same extension minus ".webp", converts it, saves it and serves it.
+It works by .htaccess magic coupled with an image converter. Basically, a rule in the .htaccess detects when a file ending  ".jpg.webp", ".jpeg.webp" or ".png.webp" is requested, but does not exists. When this happens, it routes the request to the converter, which looks for an image with the same extension minus ".webp", converts it, saves it and serves it. On subsequent requests, the webp file is there, and simply served.
 
+The image converter is able to use several methods to convert the image (imagick extension, gd extension, directly call cwebp binary or connect to ewww image optimizer cloud service). To learn the options, go to the [project on github](https://github.com/rosell-dk/webp-convert)
 
 ## Installation
-To use the solution on your website, simply copy the two files into your root folder. Also make sure that www-data has permission to write in the relevant portion of your site.
+To use the solution on your website, copy the two .htaccess and the webp-convert directory into your root folder. Also make sure that www-data has permission to write in the relevant portion of your site.
 
 
 ## Configuration
@@ -38,8 +39,6 @@ For location, you have three options:
 </picture>
 ```
 
-3. Do not to store the converted files at all. Each time an image is requested, a convertion will be made and served 
-
 You choose between the three options by commenting/uncommenting blocks in the .htaccess. Precise instructions are given in the .htaccess.
 
 ## Verifying that it works
@@ -47,27 +46,21 @@ Simply check that an image displays both in a browser with WebP support (ie Goog
 
 ## Limitations
 * The solution does not work on Microsoft IIS server
-* The solution requires PHP > 5.5.0 compiled with webp support
 
 ## FAQ
 
-### Image converter does not work
-The image converter is using the [imagewebp()](http://php.net/manual/en/function.imagewebp.php) function in PHP to create WebP images. The function is is available from PHP 5.5.0. However, it requires that PHP is compiled with WebP support, which unfortunately aren't the case on many webhosts (according to [this link](https://stackoverflow.com/questions/25248382/how-to-create-a-webp-image-in-php)). WebP generation in PHP 5.5 requires that php is configured with the "--with-vpx-dir" flag and in PHP 7.0, php has to be configured --with-webp-dir flag [source](http://il1.php.net/manual/en/image.installation.php).
-
-
 ## Roadmap
 
-* Use cweb converter when imagewebp isn't available.
 * Updating the original image will not cause the converted image to be updated. It would be possible though: The converted image could have the modification date of the original as part of the filename. Of course, this will only make practical sense when the markup is generated automatically.
  
 ## A similar project
-The project is very similar to [WebP on demand](https://github.com/rosell-dk/webp-on-demand). The converter is the same, but *WebP on demand* does not require the HTML. Instead, the jpeg/png is routed to the converted file for clients that supports webp. That is, conditionally.
+The project is very similar to [WebP on demand](https://github.com/rosell-dk/webp-on-demand). The converter is the same, but the approach is somewhat opposite. Instead of rewriting requests for non-existing webp-files, it redirects requests for existing jpeg/png files - but only for clients that supports WebP.
 
-Pros and cons compared to [Webp on demand](https://github.com/rosell-dk/webp-on-demand):
+Pros and cons of *WebP realizer* compared to [Webp on demand](https://github.com/rosell-dk/webp-on-demand):
 
-PRO: This works better with CDN's<br>
-CON: This does not work on images referenced in CSS<br>
-CON: You will have to have control of the markup
+PRO: WebP realizer requires no special setup on CDN's<br>
+CON: WebP realizer does not work on images referenced in CSS<br>
+CON: WebP realizer requires you to add extra HTML markup (manually or by other means)<br>
 
 
 ## Wordpress adaptation
@@ -75,7 +68,7 @@ I'm planning to make a Wordpress adaptation, which automatically creates the mar
 
 One solution is to work on entire output with output buffering. But the downside of doing that is that it slows things down, because content isn't allowed to be sent to the browser as its ready, but instead has to wait for the full document to be rendered (more about the approach [here](https://stackoverflow.com/questions/772510/wordpress-filter-to-modify-final-html-output)). 
 
-Another solution is to find relevants hook. get_image_tag looks very promising (but I don't know if plugins that inserts images generally uses the hook. If not, then there will be additional work getting it to work with selected popular plugins, such as galleries)
+Another solution is to find relevants hook. *get_image_tag()* looks very promising (but I don't know if plugins that inserts images generally uses the hook. If not, then there will be additional work getting it to work with selected popular plugins, such as galleries)
 
 A javascript based solution seems out of the question, because in order to work with the DOM, one must wait for the DOMContentLoaded event. But by the time that event triggers, the browser has already started loading images (only tested in one browser, but I believe it is standard now-a-days)
 
